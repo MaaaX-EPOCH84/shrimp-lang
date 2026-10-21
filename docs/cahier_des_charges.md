@@ -129,7 +129,9 @@ Toutes ne se combinent pas : le choix est fait, voir `docs/garanties.md`.
 ## 6. Non-objectifs
 
 - Interface graphique dans `std` (Swing, `tkinter` : on sait ce que ça
-  devient).
+  devient). *Amendé le 2026-10-21, point 1.2, MaaaX :* les IHM vivent
+  dans `x/`, en enveloppes C sûres par système, sans abstraction
+  commune ; détail dans `docs/budget.md`, §5.
 - Rivaliser avec l'écosystème de Rust : Shrimp parle C à la frontière et
   peut appeler ce qui existe.
 - Adoption par le monde comme critère de réussite : un langage pour
