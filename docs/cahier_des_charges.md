@@ -4,6 +4,9 @@ Ce que Shrimp doit être, et comment on saura qu'il l'est. Posé le
 2026-10-20, avant toute ligne de spécification ou de code. Les décisions
 sont dans `AGENTS.md` ; ici, la matière.
 
+**Lu et approuvé, Maxime MARCONATO (aka MaaaX^^, aka EPOCH84), 2026-10-21.** Toute modification ultérieure
+se date et se signe de la même façon.
+
 ## 1. Thèse
 
 L'avenir de l'interface de programmation est le langage naturel, peu
@@ -105,8 +108,10 @@ intrinsèques ; tout peut battre le C qu'on écrit réellement.
 
 ## 5. Garanties candidates
 
-À réduire à **trois**, non négociables, à l'étape 1. Tout trait qui en
-contredit une est refusé, même s'il est « le meilleur » ailleurs.
+Tranchées le 2026-10-21 dans `docs/garanties.md` : cinq retenues sur
+un critère, pas sur un nombre. Tout trait qui en contredit une est
+refusé, même s'il est « le meilleur » ailleurs. La table ci-dessous est
+la matière de départ, conservée telle quelle.
 
 | Candidate | Qui l'a | Ce qu'elle coûte |
 |---|---|---|
@@ -119,7 +124,7 @@ contredit une est refusé, même s'il est « le meilleur » ailleurs.
 | Spécification bornée en taille | Scheme, Go | Refuser des traits utiles |
 | Abstraction à coût nul | Rust, C++ | Monomorphisation, donc temps de compilation |
 
-Toutes ne se combinent pas : c'est le choix de l'étape 1.
+Toutes ne se combinent pas : le choix est fait, voir `docs/garanties.md`.
 
 ## 6. Non-objectifs
 
@@ -127,10 +132,11 @@ Toutes ne se combinent pas : c'est le choix de l'étape 1.
   devient).
 - Rivaliser avec l'écosystème de Rust : Shrimp parle C à la frontière et
   peut appeler ce qui existe.
-- Adoption par le monde : un langage pour deux d'abord. Ce qui tue les
-  langages personnels — pas d'écosystème, personne ne le connaît — ne
-  tient plus quand l'IA régénère les bibliothèques depuis la spec et que
-  la spec tient dans son contexte.
+- Adoption par le monde comme critère de réussite : un langage pour
+  deux d'abord. Ce qui tue les langages personnels — pas d'écosystème,
+  personne ne le connaît — ne tient plus quand l'IA régénère les
+  bibliothèques depuis la spec et que la spec tient dans son contexte.
+  La documentation (§9) prépare l'adoption sans en dépendre.
 - Nouveauté syntaxique : la syntaxe est la partie la moins importante et
   la plus disputée ; on garde celle des autres.
 - « Le meilleur de chaque langage » : les traits ne s'additionnent pas,
@@ -141,8 +147,13 @@ Toutes ne se combinent pas : c'est le choix de l'étape 1.
 
 - **Interopérabilité C** obligatoire, dans les deux sens : tout langage
   doit parler C.
-- **Cibles** : x86-64 Linux d'abord. Puis `core`, sans OS ni allocation,
-  pour les microcontrôleurs (l'ESP32-C3 de la balise). Z80 : souhait.
+- **Cibles**, dans l'ordre : Linux, puis Windows, puis macOS, puis les
+  mobiles, puis les autres — Raspberry Pi, ESP32, STM32 et consorts, où
+  `core` tourne sans OS ni allocation. Multi-système et multi-processeur
+  sont des objectifs ; multi-génération (Z80, 6502, 68000) est un
+  souhait, tenu s'il ne coûte aucune contrainte au langage, lâché sinon.
+  Le détail — niveaux de prise en charge, compilation croisée,
+  WebAssembly, BSD — se fixe au point 1.6 de la feuille de route.
 - **Un seul outil**, une seule chaîne, pas de choix d'exécuteur ou de
   formateur laissé à l'utilisateur.
 
@@ -160,3 +171,44 @@ l'exigence est une opinion.
 | Lisible | Un humain qui n'a pas écrit le code en explique une fonction sans aide | MaaaX, sur du code écrit par l'IA |
 | Stable | Programmes du corpus qui compilent encore après chaque version | 100 % après la 1.0 |
 | Rien de caché | Allocations et appels non visibles dans le source | Zéro |
+
+## 9. Documentation
+
+Ajouté le 2026-10-21. Un langage se documente comme il se spécifie :
+d'un bloc, et dans une seule langue source.
+
+- **Une bible**, référence complète du langage — noyau, `core`, `std`,
+  outillage —, écrite en anglais, comme tout ce qui appartient au
+  langage. Livrée en ligne et en PDF, les deux engendrés depuis la même
+  source.
+- **Traduite dans les principales langues**, depuis l'anglais, pour
+  faciliter l'adoption ; la version anglaise fait foi.
+- **Chaque entrée de `core` et de `std` porte un exemple pratique
+  réel**, commenté de manière didactique : pas un appel isolé, un
+  programme qu'on aurait pu écrire pour de vrai, qui montre l'entrée
+  dans son usage. Les exemples compilent et sont testés à chaque
+  version : un exemple qui ne compile plus est un défaut de la
+  bibliothèque.
+- **L'index lisible par machine** (§2) est engendré depuis les mêmes
+  sources que la bible ; rien n'est écrit deux fois.
+
+## 10. Outillage éditeur
+
+Ajouté le 2026-10-21 (MaaaX). Lire du code, c'est aussi le lire dans un
+éditeur.
+
+- **Une extension pour VS Code et VSCodium**, la même, publiée sur les
+  deux places (Marketplace et Open VSX), livrée avec le langage et non
+  laissée à la communauté.
+- **Une coloration syntaxique conçue pour la lecture**, pas pour la
+  décoration : ce qui demande l'attention du relecteur doit sauter aux
+  yeux. En premier, **les blocs `unsafe`**, qui passent inaperçus dans
+  la masse du code et sont précisément l'endroit où les garanties
+  s'arrêtent : fond distinct, bordure, ou tout autre signal visible sur
+  une page entière. Ensuite les types à consommer et leur consommation,
+  les allocations nommées, les appels à la frontière C.
+- **La coloration vient du compilateur**, par un serveur de langage,
+  pour colorer ce que le code *est* et pas ce à quoi il ressemble :
+  une grammaire de surface ne sait pas qu'une valeur est une ressource.
+- Même exigence pour la version imprimée et le PDF de la bible : ce qui
+  est signalé à l'écran l'est sur le papier.
