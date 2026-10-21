@@ -1,0 +1,11 @@
+[package]
+name = "tokcount"
+version = "0.1.0"
+edition = "2024"
+description = "Counts the tokens of a text under several frozen BPE vocabularies and keeps the worst score"
+publish = false
+
+[dependencies]
+fancy-regex = "0.19.2"
+serde_json = "1.0.154"
+unicode-normalization = "0.1.26"

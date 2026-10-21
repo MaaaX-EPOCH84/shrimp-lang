@@ -70,7 +70,11 @@ juge ce qu'un trait coûte à lire et à spécifier.
 ## 3. Le plafond
 
 Le plafond est un nombre de tokens, celui de la spec du noyau, fixé au
-point 1.3 avec le tokenizer et le script qui le mesurent. Jusque-là :
+point 1.3 avec le tokenizer et le script qui le mesurent. *Fixé le
+2026-10-21, `docs/spec_taille.md`, approuvé par MaaaX :* 100 000 tokens
+tout compris, au pire de quatre vocabulaires figés, comptés par
+`tools/tokcount`. Les règles qui suivent restent, le « jusque-là » est
+levé :
 
 - la grille seule décide, et tout « Admis » rendu avant 1.3 l'est
   **sous réserve du plafond** ;

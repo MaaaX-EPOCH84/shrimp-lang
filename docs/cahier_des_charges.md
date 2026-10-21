@@ -63,7 +63,11 @@ Ce que l'IA demande, formulé par l'IA elle-même :
   Critère neuf, propre à cette époque : si elle relit toute la référence
   du langage à chaque session, elle ne se trompe plus sur le langage,
   seulement sur le problème. C tient, Go tient, Zig tient en une page ;
-  Rust non, C++ encore moins. Mesure en tokens, cible à fixer.
+  Rust non, C++ encore moins. Mesure en tokens, cible à fixer. *Mesuré
+  le 2026-10-21, point 1.3, `docs/spec_taille.md` :* contre 200 000
+  tokens, Go (56 519), Zig (117 907) et les clauses du langage de C
+  (144 182) tiennent ; la référence de Rust (303 578) et C++ sans sa
+  bibliothèque (380 718) non. Plafond de Shrimp : 100 000 tout compris.
 - **La référence de `std` lisible par machine** : une signature, une
   ligne, un thème par entrée, pour vérifier au lieu de deviner.
 
@@ -166,7 +170,7 @@ l'exigence est une opinion.
 
 | Exigence | Mesure | Référence |
 |---|---|---|
-| Spec courte | Tokens de la spec du noyau | Fenêtre de contexte courante d'une IA ; chiffre à fixer |
+| Spec courte | Tokens de la spec du noyau, au pire de quatre vocabulaires figés (`tools/tokcount`) | 100 000 tout compris, fixé le 2026-10-21 (`docs/spec_taille.md`) ; Go 56 519, Zig 117 907, Rust 303 578 |
 | Vite compilé | Secondes pour un programme de référence, à froid et incrémental | Rust, Go, OCaml sur le même programme |
 | Code rapide | Temps d'exécution des mêmes programmes | C (`-O2`), Rust (`--release`) |
 | Vérificateur pas trop strict | Programmes corrects refusés sur un corpus donné | Rust sur le même corpus |
