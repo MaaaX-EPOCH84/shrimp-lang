@@ -2,7 +2,7 @@
 
 Counts the tokens of a text under four frozen byte-level BPE
 vocabularies and keeps the worst score. That score is what
-`docs/spec_taille.md` compares with the ceiling on the size of the Shrimp
+`docs/spec_size.md` compares with the ceiling on the size of the Shrimp
 core specification.
 
 One merge loop, written here, serves every vocabulary; only the data

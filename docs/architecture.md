@@ -1,85 +1,85 @@
 # Architecture — Shrimp
 
-Proposée le 2026-10-20, à valider étape par étape. Deux objets : un
-noyau gelé, une bibliothèque en trois étages.
+Proposed on 2026-10-20, to be validated step by step. Two objects: a
+frozen core language, a library in three tiers.
 
-## 1. Le noyau
+## 1. The core language
 
-Le noyau, c'est ce qu'on ne pourra plus changer. Petit, gelé tôt,
-spécifié dans un texte qui tient dans la fenêtre de contexte d'une IA,
-avec une implémentation de référence et une suite de tests qui fait foi.
+The core language is what can never be changed again. Small, frozen
+early, specified in a text that fits in an AI's context window, with a
+reference implementation and a test suite that is authoritative.
 
-Il contient, et rien d'autre :
-- le **modèle de propriété et d'aliasing** — la seule chose qu'on ne
-  greffe pas après coup (C++ essaie depuis quinze ans) ;
-- le **modèle d'erreur** : valeurs, exhaustivité, propagation ;
-- le **modèle mémoire** : ce qui est garanti entre fils ;
-- le **système de modules** et la visibilité ;
-- le **système de types** : somme, produit, génériques ou `comptime`,
-  traits ou interfaces — à trancher ;
-- la **syntaxe minimale**, empruntée, pas inventée ;
-- la **frontière** : `unsafe` s'il existe, et l'ABI C.
+It contains this, and nothing else:
+- the **ownership and aliasing model** — the one thing that cannot be
+  grafted on afterwards (C++ has been trying for fifteen years);
+- the **error model**: values, exhaustiveness, propagation;
+- the **memory model**: what is guaranteed between threads;
+- the **module system** and visibility;
+- the **type system**: sums, products, generics or `comptime`, traits or
+  interfaces — to be decided;
+- the **minimal syntax**, borrowed, not invented;
+- the **boundary**: `unsafe` if it exists, and the C ABI.
 
-La bibliothèque standard, même énorme, n'en fait pas partie.
+The standard library, however huge, is not part of it.
 
-## 2. Les trois étages
+## 2. The three tiers
 
-| Étage | Contenu | Règle |
+| Tier | Contents | Rule |
 |---|---|---|
-| `core` | Sans OS, sans allocation : types de base, tranches, options et résultats, formatage minimal | Ce qui tient dans un microcontrôleur ; ce que Z80 pourrait viser |
-| `std` | Tout ce dont 90 % des programmes ont besoin : texte et Unicode, collections, maths, temps, fichiers, réseau et HTTP, JSON, TOML, CSV, XML, hachage et TLS, expressions régulières, compression, processus, arguments, tests | Une seule convention partout. Écrite en Shrimp. Précompilée, liée à la demande : un gros `std` ne coûte rien à un petit binaire |
-| `x/` | Incubateur officiel : même outillage, même gouvernance, autorisé à casser | La file d'attente vers `std` ; ce qui n'est jamais promu s'archive |
+| `core` | No OS, no allocation: basic types, slices, options and results, minimal formatting | What fits in a microcontroller; what a Z80 could aim for |
+| `std` | Everything 90% of programs need: text and Unicode, collections, math, time, files, networking and HTTP, JSON, TOML, CSV, XML, hashing and TLS, regular expressions, compression, processes, arguments, tests | One convention everywhere. Written in Shrimp. Precompiled, linked on demand: a big `std` costs a small binary nothing |
+| `x/` | Official incubator: same tooling, same governance, allowed to break | The waiting line into `std`; what is never promoted gets archived |
 
-Modèles : `std` à la Go (un serveur de production sans dépendance),
-cohérence à la WLangage (un préfixe par famille, même ordre de
-paramètres partout — ici des modules par thème, forme moderne du même
-geste), incubateur à la `golang.org/x/` (`context`, `slices`, `maps`,
-`log/slog` y sont nés), antichambre à la Boost → C++.
+Models: `std` in the style of Go (a production server with no
+dependencies), consistency in the style of WLangage (one prefix per
+family, the same parameter order everywhere — here, modules by theme,
+the modern form of the same gesture), incubator in the style of
+`golang.org/x/` (`context`, `slices`, `maps`, `log/slog` were born
+there), antechamber in the style of Boost → C++.
 
-Contre-modèles : PHP (énorme et incohérent : `strpos(botte, aiguille)`
-mais `array_search(aiguille, botte)`), Python (`urllib` si pénible que
-tout le monde installe `requests` ; dix-neuf modules morts retirés en
-3.13), Java (`java.util.Date` cassée depuis le premier jour et toujours
-là).
+Counter-models: PHP (huge and inconsistent: `strpos(haystack, needle)`
+but `array_search(needle, haystack)`), Python (`urllib` so painful that
+everyone installs `requests`; nineteen dead modules removed in 3.13),
+Java (`java.util.Date` broken since day one and still there).
 
-## 3. La convention unique de `std`
+## 3. The single convention of `std`
 
-À écrire à l'étape 4, avant la première fonction. Au minimum :
-- nommage : un mot par concept, le même partout ;
-- ordre des paramètres : le sujet d'abord, toujours ;
-- un seul type d'erreur par famille, propagé de la même façon ;
-- documentation : une ligne par entrée, qui tient dans l'index.
+To be written at step 4, before the first function. At a minimum:
+- naming: one word per concept, the same everywhere;
+- parameter order: the subject first, always;
+- one error type per family, propagated the same way;
+- documentation: one line per entry, which fits in the index.
 
-## 4. Promotion de `x/` vers `std`
+## 4. Promotion from `x/` to `std`
 
-Critères, tous requis :
-1. API inchangée depuis plusieurs années ;
-2. une seule conception évidente — pas de promotion quand deux écoles
-   s'affrontent (les exécuteurs asynchrones de Rust) ;
-3. des mainteneurs qui remettent les clés ;
-4. aucune dépendance hors `std` ;
-5. tests et documentation au niveau de `std` ;
-6. **réécriture aux conventions de `std` à l'entrée** : c'est là que
-   « bien faite » devient « cohérente ».
+Criteria, all required:
+1. API unchanged for several years;
+2. a single obvious design — no promotion while two schools are fighting
+   (Rust's async executors);
+3. maintainers who hand over the keys;
+4. no dependency outside `std`;
+5. tests and documentation at the level of `std`;
+6. **rewrite to the conventions of `std` on entry**: this is where
+   "well made" becomes "consistent".
 
-Porte de sortie : **éditions**. Rien n'est jamais supprimé ; une édition
-masque le déprécié. Go n'enlève jamais rien (d'où sa sévérité à
-l'entrée), Python enlève dans la douleur, les éditions sont le compromis.
+Exit door: **editions**. Nothing is ever removed; an edition hides what
+is deprecated. Go never removes anything (hence its severity at the
+door), Python removes painfully, editions are the compromise.
 
-## 5. L'index
+## 5. The index
 
-`std` est livrée avec sa référence lisible par machine : une entrée par
-fonction, type ou constante — module, nom, signature, une ligne, thème,
-édition d'apparition. Un fichier que l'IA charge pour vérifier une
-signature au lieu de l'inventer, et que l'outillage engendre depuis les
-sources, jamais à la main.
+`std` ships with its machine-readable reference: one entry per function,
+type or constant — module, name, signature, one line, theme, edition of
+first appearance. A file the AI loads to check a signature instead of
+inventing it, and which the tooling generates from the sources, never by
+hand.
 
-## 6. Outillage
+## 6. Tooling
 
-Un seul exécutable, `shrimp` : `build`, `run`, `test`, `fmt`, `doc`,
-`index`. Pas de `shrimpc` séparé, pas de choix de formateur. Extension
-des sources : `.shr` ou `.shrimp` (`.sh` est pris).
+A single executable, `shrimp`: `build`, `run`, `test`, `fmt`, `doc`,
+`index`. No separate `shrimpc`, no choice of formatter. Source
+extension: `.shr` or `.shrimp` (`.sh` is taken).
 
-Premier compilateur : en Rust, avec un backend choisi pour arriver vite
-à un programme qui tourne — C émis, Cranelift ou LLVM. Auto-hébergement
-plus tard, quand le langage le mérite.
+First compiler: in Rust, with a backend chosen to get quickly to a
+program that runs — emitted C, Cranelift or LLVM. Self-hosting later,
+when the language deserves it.

@@ -1,274 +1,275 @@
-# Budget de complexité et non-objectifs — Shrimp
+# Complexity budget and non-goals — Shrimp
 
-Décision du point 1.2 de la feuille de route, 2026-10-21. Les garanties
-(`docs/garanties.md`) disent ce qui est refusé d'office ; ici, comment
-se décide tout le reste — ce qu'aucune garantie ne tranche —, et ce que
-le projet déclare ne pas poursuivre. Les faits sur les autres langages
-ont été relus à la source le jour de la décision ; les sources sont en
-fin de document.
+Decision of point 1.2 of the roadmap, 2026-10-21. The guarantees
+(`docs/guarantees.md`) say what is refused outright; here, how
+everything else is decided — what no guarantee settles — and what the
+project declares it does not pursue. The facts about other languages
+were re-read at the source on the day of the decision; the sources are
+at the end of the document.
 
-**Lu et approuvé, Maxime MARCONATO (aka MaaaX^^, aka EPOCH84),
-2026-10-21.** Toute modification ultérieure se date et se signe.
+**Read and approved, Maxime MARCONATO (aka MaaaX^^, aka EPOCH84),
+2026-10-21.** Any later change is dated and signed.
 
-Quatre arbitrages pris par MaaaX avant écriture, le 2026-10-21 : le
-budget est une grille pour admettre et un plafond pour refuser ; les
-quatre traits renvoyés par 1.1 se tranchent ici ; les non-objectifs
-restent cinq ; l'IHM reçoit un amendement.
+*Translated into English on 2026-10-22. The French text approved at commit
+888832d remains the reference until this translation is re-read.*
 
-## 1. Ce qu'est le budget
+Four trade-off decisions taken by MaaaX before writing, on 2026-10-21:
+the budget is a grid for admitting and a ceiling for refusing; the four
+features sent back by 1.1 are decided here; the non-goals remain five;
+the GUI receives an amendment.
 
-Un trait qu'aucune garantie ne refuse n'est pas admis pour autant. Il
-coûte, et il coûte dans une monnaie bornée : **la spécification du
-noyau doit tenir dans la fenêtre de contexte d'une IA** (cahier §8,
-chiffre au point 1.3). Chaque trait y dépense ses règles, ses cas
-limites et ses interactions avec les traits déjà admis.
+## 1. What the budget is
 
-Deux propriétés font du budget une porte à sens unique :
+A feature that no guarantee refuses is not admitted for all that. It
+costs, and it costs in a bounded currency: **the specification of the
+core language must fit in the context window of an AI** (requirements
+§8, figure at point 1.3). Each feature spends there its rules, its edge
+cases and its interactions with the features already admitted.
 
-- **Admettre est irréversible.** Ce qui compile aujourd'hui compile
-  demain ; une édition masque, elle ne supprime pas
-  (`docs/architecture.md`, §4). Un trait admis reste dans le langage
-  pour toujours, même déprécié.
-- **Refuser est réversible.** Rien n'empêche d'admettre plus tard un
-  trait refusé aujourd'hui, si un programme témoin montre qu'il manque.
+Two properties make the budget a one-way door:
 
-**Dans le doute, refuser.** L'asymétrie commande la règle.
+- **Admitting is irreversible.** What compiles today compiles
+  tomorrow; an edition hides, it does not remove
+  (`docs/architecture.md`, §4). An admitted feature stays in the
+  language forever, even deprecated.
+- **Refusing is reversible.** Nothing prevents admitting later a
+  feature refused today, if a witness program shows that it is missing.
 
-Le budget tranche en deux temps : une **grille**, qui dit si un trait
-paie sa place ; un **plafond**, qui dit s'il reste de la place. La
-grille s'applique dès aujourd'hui ; le plafond attend son chiffre.
+**When in doubt, refuse.** The asymmetry dictates the rule.
 
-## 2. La grille : « chaque trait paie sa place »
+The budget decides in two stages: a **grid**, which says whether a
+feature pays its way; a **ceiling**, which says whether there is room
+left. The grid applies from today; the ceiling awaits its figure.
 
-Sept questions, dans cet ordre. **Le premier « non » arrête** : le
-trait est refusé, et la question qui l'a refusé est archivée avec lui.
-Un trait admis a répondu aux sept, et ses réponses sont archivées
-aussi, parce qu'elles sont la spec en germe.
+## 2. The grid: "every feature pays its way"
 
-| # | Question | Réponse qui fait passer |
+Seven questions, in this order. **The first "no" stops**: the feature
+is refused, and the question that refused it is archived with it. An
+admitted feature has answered all seven, and its answers are archived
+too, because they are the spec in embryo.
+
+| # | Question | Answer that passes |
 |---|---|---|
-| Q0 | Une garantie le refuse-t-elle ? | Non. Déjà fait en 1.1 pour les traits connus ; refait pour tout trait nouveau |
-| Q1 | Peut-il vivre en bibliothèque ? | Non. S'il le peut, il y va — `std` ou `x/` — et ne coûte rien au noyau |
-| Q2 | Quelle mesure du cahier §8 sert-il, ou quelle garantie l'exige ? | Au moins une, nommée. Un trait qui n'avance aucune mesure ne paie rien |
-| Q3 | Le programme témoin est-il plus lisible avec que sans ? | Oui, côte à côte : le même programme écrit avec les seuls traits déjà admis, et avec le candidat. Si le « sans » se lit aussi bien, le candidat est redondant |
-| Q4 | Double-t-il une façon de faire déjà admise ? | Non, ou il la remplace entièrement. Une seule façon de faire chaque chose |
-| Q5 | Avec quels traits admis interagit-il, et chaque interaction a-t-elle sa règle ? | Toutes listées, toutes réglées. Une interaction sans règle est un refus : c'est l'endroit exact où les langages « meilleur de chaque » se cassent (cahier §6) |
-| Q6 | Que coûte-t-il en tokens de spec ? | Une estimation à l'entrée, la mesure sur le texte réel à l'étape 3 ; sous le plafond, ou le trait attend |
+| Q0 | Does a guarantee refuse it? | No. Already done in 1.1 for the known features; redone for any new feature |
+| Q1 | Can it live in a library? | No. If it can, that is where it goes — `std` or `x/` — and it costs the core language nothing |
+| Q2 | Which measurement of requirements §8 does it serve, or which guarantee requires it? | At least one, named. A feature that advances no measurement pays nothing |
+| Q3 | Is the witness program more readable with it than without? | Yes, side by side: the same program written with only the features already admitted, and with the candidate. If the "without" reads just as well, the candidate is redundant |
+| Q4 | Does it duplicate a way of doing things already admitted? | No, or it replaces it entirely. One single way of doing each thing |
+| Q5 | Which admitted features does it interact with, and does each interaction have its rule? | All listed, all settled. An interaction without a rule is a refusal: it is the exact place where "best of each" languages break (requirements §6) |
+| Q6 | What does it cost in spec tokens? | An estimate on entry, the measurement on the real text at step 3; under the ceiling, or the feature waits |
 
-Trois verdicts possibles : **Admis**, **Refusé** (avec la question),
-**Reporté** (grille passée, plafond non encore chiffré ou texte de spec
-non encore écrit ; le trait n'entre pas tant que la mesure manque).
+Three possible verdicts: **Admitted**, **Refused** (with the question),
+**Postponed** (grid passed, ceiling not yet set or spec text not yet
+written; the feature does not enter as long as the measurement is
+missing).
 
-**Qui l'applique.** L'IA instruit : elle écrit les sept réponses et le
-programme témoin. MaaaX tranche, date et signe. Un trait n'entre pas
-dans le noyau sans sa grille archivée.
+**Who applies it.** The AI prepares the case: it writes the seven
+answers and the witness program. MaaaX decides, dates and signs. A
+feature does not enter the core language without its archived grid.
 
-**Ce que la grille ne juge pas.** La syntaxe, qui se copie (cahier §6),
-et la vitesse du code produit, qui se mesure (point 1.8). La grille
-juge ce qu'un trait coûte à lire et à spécifier.
+**What the grid does not judge.** Syntax, which is copied (requirements
+§6), and the speed of the generated code, which is measured (point
+1.8). The grid judges what a feature costs to read and to specify.
 
-## 3. Le plafond
+## 3. The ceiling
 
-Le plafond est un nombre de tokens, celui de la spec du noyau, fixé au
-point 1.3 avec le tokenizer et le script qui le mesurent. *Fixé le
-2026-10-21, `docs/spec_taille.md`, approuvé par MaaaX :* 100 000 tokens
-tout compris, au pire de quatre vocabulaires figés, comptés par
-`tools/tokcount`. Les règles qui suivent restent, le « jusque-là » est
-levé :
+The ceiling is a number of tokens, that of the core language spec, set
+at point 1.3 with the tokenizer and the script that measure it. *Set on
+2026-10-21, `docs/spec_size.md`, approved by MaaaX:* 100,000 tokens all
+included, at the worst of four frozen vocabularies, counted by
+`tools/tokcount`. The rules that follow remain; the "until then" is
+lifted:
 
-- la grille seule décide, et tout « Admis » rendu avant 1.3 l'est
-  **sous réserve du plafond** ;
-- un trait admis par la grille mais qui ferait dépasser le plafond est
-  **Refusé**, ou le plafond est relevé par une décision de MaaaX, datée
-  et motivée. Il ne se relève jamais en passant ;
-- ce qu'une édition masque sort du texte courant de la spec et va en
-  annexe, hors plafond : l'IA qui écrit dans l'édition courante n'a pas
-  à le charger. L'annexe reste normative pour les éditions antérieures.
+- the grid alone decides, and every "Admitted" verdict given before 1.3
+  is **subject to the ceiling**;
+- a feature admitted by the grid but which would exceed the ceiling is
+  **Refused**, or the ceiling is raised by a decision of MaaaX, dated
+  and motivated. It is never raised in passing;
+- what an edition hides leaves the current text of the spec and goes to
+  an appendix, outside the ceiling: the AI writing in the current
+  edition does not have to load it. The appendix remains normative for
+  earlier editions.
 
-Avant la version 1.0, rien n'est gelé : la grille s'applique, le
-plafond se mesure, les verdicts se révisent à l'audit (étapes 6, 11,
-15). À partir de 1.0, la porte est à sens unique.
+Before version 1.0, nothing is frozen: the grid applies, the ceiling is
+measured, the verdicts are revised at the audit (steps 6, 11, 15). From
+1.0 on, the door is one-way.
 
-## 4. Les quatre traits renvoyés par le point 1.1
+## 4. The four features sent back by point 1.1
 
-### `defer` — Refusé (Q4)
+### `defer` — Refused (Q4)
 
-**Ce que c'est.** Go : « A "defer" statement invokes a function whose
-execution is deferred to the moment the surrounding function returns ».
-Zig : « Executes an expression unconditionally at scope exit », en
-ordre inverse.
+**What it is.** Go: "A 'defer' statement invokes a function whose
+execution is deferred to the moment the surrounding function returns".
+Zig: "Executes an expression unconditionally at scope exit", in reverse
+order.
 
-**La grille.** Q0 : visible, aucune garantie ne tranche (1.1). Q1 : non,
-c'est du flux de contrôle. Q2 : il servirait « lisible » en rapprochant
-la libération de l'acquisition. Q3 : le programme témoin est une
-fonction qui ouvre un fichier, fait trois opérations qui peuvent
-échouer, et le ferme. Avec `defer`, la fermeture est écrite en haut et
-exécutée en bas : le lecteur doit tenir en tête une action différée,
-ce que G4 tolère mais n'aime pas. Sans `defer`, la fermeture est une
-consommation explicite que le compilateur impose sur chaque chemin de
-sortie (arbitrage G2 × G4 du point 1.1). **Q4 : il double la
-consommation imposée.** Deux façons de libérer une ressource, l'une
-vérifiée par le typage, l'autre par une convention de placement. Refus.
+**The grid.** Q0: visible, no guarantee settles it (1.1). Q1: no, it is
+control flow. Q2: it would serve "readable" by bringing the release
+closer to the acquisition. Q3: the witness program is a function that
+opens a file, performs three operations that can fail, and closes it.
+With `defer`, the close is written at the top and executed at the
+bottom: the reader must keep a deferred action in mind, which G4
+tolerates but does not like. Without `defer`, the close is an explicit
+consumption that the compiler enforces on every exit path (G2 × G4
+trade-off decision of point 1.1). **Q4: it duplicates the enforced
+consumption.** Two ways to release a resource, one checked by typing,
+the other by a placement convention. Refused.
 
-**Ce que le refus laisse à l'étape 3.** Le besoin derrière `defer` est
-réel : avec un opérateur de propagation à la `?`, une ressource vivante
-doit être consommée avant chaque propagation, et l'écrire à chaque
-ligne est illisible. Contrainte pour la conception des ressources :
-**la consommation sur tous les chemins de sortie doit pouvoir s'écrire
-une seule fois, visiblement, sans destructeur.** Le mécanisme — bloc à
-ressource, ou autre — est du ressort de la spec, sous G4.
+**What the refusal leaves to step 3.** The need behind `defer` is
+real: with a `?`-style propagation operator, a live resource must be
+consumed before each propagation, and writing it on every line is
+unreadable. Constraint for the design of resources: **consumption on
+all exit paths must be writable once, visibly, without a destructor.**
+The mechanism — resource block, or other — belongs to the spec, under
+G4.
 
-### `async`/`await` — Refusé (Q5)
+### `async`/`await` — Refused (Q5)
 
-**Ce que c'est.** Rust : « Use `async` in front of `fn`, `closure`, or
-a `block` to turn the marked code into a `Future`. As such the code
-will not be run immediately, but will only be evaluated when the
-returned future is `.await`ed » ; « Futures alone are *inert*; they
-must be *actively* `poll`ed for the underlying computation to make
-progress ». L'exécuteur n'est pas fourni : « Rust lets you choose one
-depending on your requirements, rather than providing one ».
+**What it is.** Rust: "Use `async` in front of `fn`, `closure`, or a
+`block` to turn the marked code into a `Future`. As such the code will
+not be run immediately, but will only be evaluated when the returned
+future is `.await`ed"; "Futures alone are *inert*; they must be
+*actively* `poll`ed for the underlying computation to make progress".
+The executor is not provided: "Rust lets you choose one depending on
+your requirements, rather than providing one".
 
-**La grille.** Q0 : visible, pas tranché (1.1). Q1 : l'exécuteur, oui ;
-la transformation d'une fonction en machine d'états, non — elle est
-dans le compilateur. Q2 : aucune mesure du §8 ; ce qu'il sert, c'est
-l'écriture de serveurs, que `std` doit permettre (réseau, HTTP) mais
-que des fils et G3 permettent aussi. Q3 : le programme témoin — un
-serveur qui sert dix connexions — se lit mieux en fils synchrones :
-chaque connexion est une fonction ordinaire. Q4 : il double le modèle
-de concurrence par fils, et **il double `std`** : chaque fonction
-bloquante demande sa jumelle asynchrone (Rust a `std::fs` et
-`tokio::fs`), ce qui contredit « une seule convention partout ». Ce
-serait déjà un refus. **Q5 : une interaction sans règle.** Une future
-abandonnée avant sa fin tient des ressources ; en Rust, l'annulation
-est un `Drop`. Shrimp n'a pas de destructeur (1.1) : une future
-annulée est une ressource non consommée, et aucune règle ne dit qui la
-consomme. Refus.
+**The grid.** Q0: visible, not settled (1.1). Q1: the executor, yes;
+the transformation of a function into a state machine, no — it is in
+the compiler. Q2: no measurement of §8; what it serves is the writing
+of servers, which `std` must allow (network, HTTP) but which threads
+and G3 allow too. Q3: the witness program — a server serving ten
+connections — reads better in synchronous threads: each connection is
+an ordinary function. Q4: it duplicates the thread-based concurrency
+model, and **it duplicates `std`**: every blocking function calls for
+its asynchronous twin (Rust has `std::fs` and `tokio::fs`), which
+contradicts "one single convention everywhere". That would already be a
+refusal. **Q5: an interaction without a rule.** A future abandoned
+before its end holds resources; in Rust, cancellation is a `Drop`.
+Shrimp has no destructor (1.1): a canceled future is an unconsumed
+resource, and no rule says who consumes it. Refused.
 
-**Ce que le refus laisse.** La concurrence de Shrimp est celle de G3 :
-fils, et un modèle de partage typé à fixer à l'étape 3. Si un programme
-témoin montre un jour qu'un serveur en fils échoue à une mesure du §8,
-le trait repasse par la grille avec une règle pour l'annulation — ou
-vit en bibliothèque dans `x/`, sans syntaxe.
+**What the refusal leaves.** Shrimp's concurrency is that of G3:
+threads, and a typed sharing model to be set at step 3. If a witness
+program one day shows that a threaded server fails a measurement of
+§8, the feature goes through the grid again with a rule for
+cancellation — or lives in a library in `x/`, without syntax.
 
-### Héritage — Refusé (Q5)
+### Inheritance — Refused (Q5)
 
-**Ce que c'est.** Rust n'en a pas : « There is no way to define a
-struct that inherits the parent struct's fields and method
-implementations without using a macro. » Ses deux usages, d'après le
-même texte : réutiliser du code, et utiliser un type fils là où le
-type parent est attendu. Go non plus : « Object-oriented programming,
-at least in the best-known languages, involves too much discussion of
-the relationships between types ».
+**What it is.** Rust has none: "There is no way to define a struct
+that inherits the parent struct's fields and method implementations
+without using a macro." Its two uses, according to the same text:
+reusing code, and using a child type where the parent type is expected.
+Go neither: "Object-oriented programming, at least in the best-known
+languages, involves too much discussion of the relationships between
+types".
 
-**La grille.** Q0 : pas tranché (1.1). Q1 : non. Q2 : « lisible »,
-pour la réutilisation. Q3 : le programme témoin — trois formes avec
-une aire — se lit aussi bien en type somme fermé, et mieux quand il
-faut savoir ce qu'une valeur peut être. Q4 : la réutilisation est déjà
-servie par la composition et les génériques (admis en 1.1) ; la
-substitution le sera par le mécanisme de polymorphisme de l'étape 3.
-**Q5 : deux interactions sans règle.** Avec G5 : une hiérarchie est
-ouverte, un fils peut être ajouté ailleurs, donc un filtrage sur la
-hiérarchie n'est jamais exhaustif — G5 ne peut pas s'appliquer. Avec
-la sémantique de valeur et G2 : un fils copié dans un parent perd ses
-champs (le *slicing* de C++), ou bien tout passe par référence, ce qui
-impose l'allocation là où G4 veut la voir écrite. Refus.
+**The grid.** Q0: not settled (1.1). Q1: no. Q2: "readable", for
+reuse. Q3: the witness program — three shapes with an area — reads just
+as well as a closed sum type, and better when one must know what a
+value can be. Q4: reuse is already served by composition and generics
+(admitted in 1.1); substitution will be served by the polymorphism
+mechanism of step 3. **Q5: two interactions without a rule.** With G5:
+a hierarchy is open, a child can be added elsewhere, so a match over
+the hierarchy is never exhaustive — G5 cannot apply. With value
+semantics and G2: a child copied into a parent loses its fields (C++'s
+*slicing*), or else everything goes by reference, which imposes
+allocation where G4 wants to see it written. Refused.
 
-**Ce que le refus laisse.** Types somme fermés, composition, et un
-polymorphisme par interface dont la forme — statique par génériques,
-dynamique par type déclaré — se fixe à l'étape 3 sous G4.
+**What the refusal leaves.** Closed sum types, composition, and an
+interface-based polymorphism whose form — static through generics,
+dynamic through a declared type — is set at step 3 under G4.
 
-### Inférence de types locale — Refusé (Q3)
+### Local type inference — Refused (Q3)
 
-**Ce que c'est.** Rust : « The compiler can usually infer what type we
+**What it is.** Rust: "The compiler can usually infer what type we
 want to use based on the value and how we use it. In cases when many
-types are possible … we must add a type annotation ». Avec une borne :
-« In function signatures, you *must* declare the type of each
-parameter. … Requiring type annotations in function definitions means
-the compiler almost never needs you to use them elsewhere ».
+types are possible … we must add a type annotation". With a bound: "In
+function signatures, you *must* declare the type of each parameter. …
+Requiring type annotations in function definitions means the compiler
+almost never needs you to use them elsewhere".
 
-**La grille.** Q0 : rien ne s'exécute, G4 ne tranche pas (1.1) — le
-verdict de `garanties.md` tient, ce n'est pas G4 qui refuse. Q1 : non.
-Q2 : « lisible », en retirant les annotations des variables locales.
-**Q3 : le programme témoin se lit mieux avec les types écrits.** Le
-lecteur de référence de la mesure « lisible » (cahier §8) est MaaaX,
-et son verdict, le 2026-10-21 : un type inféré est du code implicite
-à la lecture ; un type écrit ne laisse aucun doute. Sans outil, sans
-IDE, au stylo bille, `let n = f(x)` oblige à aller lire `f` ;
-`let n: u32 = f(x)` se lit sur place. Refus.
+**The grid.** Q0: nothing executes, G4 does not settle it (1.1) — the
+verdict of `guarantees.md` holds, it is not G4 that refuses. Q1: no.
+Q2: "readable", by removing the annotations from local variables.
+**Q3: the witness program reads better with the types written out.**
+The reference reader for the "readable" measurement (requirements §8)
+is MaaaX, and his verdict, on 2026-10-21: an inferred type is implicit
+code at reading time; a written type leaves no doubt. Without tools,
+without an IDE, with a ballpoint pen, `let n = f(x)` forces one to go
+and read `f`; `let n: u32 = f(x)` reads in place. Refused.
 
-**Ce que le refus coûte, et à qui.** Écrire chaque type est long et
-parfois lourd — un type générique imbriqué sur un `let`. Ce coût est
-à l'écriture, donc à l'IA : c'est exactement le renversement du cahier
-§3, la difficulté se déplace vers celui qui écrit, la lecture reste
-simple. Le compilateur, lui, vérifie au lieu de deviner : une
-annotation fausse est une erreur, pas une inférence.
+**What the refusal costs, and to whom.** Writing every type is long
+and sometimes heavy — a nested generic type on a `let`. That cost is at
+writing time, hence on the AI: it is exactly the reversal of
+requirements §3, the difficulty moves to the one who writes, reading
+stays simple. The compiler, for its part, checks instead of guessing: a
+wrong annotation is an error, not an inference.
 
-**Ce que le refus laisse à l'étape 3.** Shrimp est strict : toute
-liaison — variable locale, paramètre, retour, champ, constante,
-paramètre de fermeture — porte son type écrit. Reste à la spec de
-fixer comment un littéral prend le sien (annotation de la liaison,
-suffixe, ou les deux) sans promotion silencieuse, et de s'assurer que
-les types restent courts à écrire : des alias nommés, pas de
-l'inférence.
+**What the refusal leaves to step 3.** Shrimp is strict: every
+binding — local variable, parameter, return, field, constant, closure
+parameter — carries its written type. It remains for the spec to set
+how a literal gets its own (annotation of the binding, suffix, or both)
+without silent promotion, and to make sure that types stay short to
+write: named aliases, not inference.
 
-## 5. Les non-objectifs
+## 5. The non-goals
 
-Les cinq du cahier §6, relus un par un. Pas de sixième : les verdicts
-de garanties (pas de macros, pas de surcharge d'opérateurs, pas
-d'exceptions) sont des refus motivés, archivés dans `garanties.md`, pas
-des non-objectifs.
+The five of requirements §6, re-read one by one. No sixth: the
+guarantee verdicts (no macros, no operator overloading, no exceptions)
+are motivated refusals, archived in `guarantees.md`, not non-goals.
 
-| Non-objectif | Sort | Motif |
+| Non-goal | Outcome | Reason |
 |---|---|---|
-| Interface graphique dans `std` | **Amendé** | « Pas dans `std` » ne disait pas où. Tranché : les IHM vivent dans `x/`, sous la forme d'enveloppes C sûres **par système** — une pour chaque boîte à outils native —, **sans abstraction commune** au-dessus. Shrimp n'unifie rien : chaque système expose la sienne. C'est précisément l'abstraction commune (Swing, `tkinter`) que le non-objectif visait, et elle reste refusée |
-| Rivaliser avec l'écosystème de Rust | Confirmé | La frontière C est un chapitre du noyau (1.1, §2 bis) ; c'est elle qui rend l'existant appelable |
-| Adoption par le monde comme critère de réussite | Confirmé | Un langage pour deux, d'abord ; la mesure « lisible » se fait avec MaaaX, pas avec un sondage |
-| Nouveauté syntaxique | Confirmé | La grille ne juge pas la syntaxe (§2) ; elle se copie |
-| « Le meilleur de chaque langage » | Confirmé, et outillé | Q5 est sa traduction mécanique : une interaction sans règle refuse le trait |
+| Graphical user interface in `std` | **Amended** | "Not in `std`" did not say where. Decided: GUIs live in `x/`, in the form of safe C wrappers **per system** — one for each native toolkit —, **with no common abstraction** above them. Shrimp unifies nothing: each system exposes its own. It is precisely the common abstraction (Swing, `tkinter`) that the non-goal targeted, and it remains refused |
+| Competing with Rust's ecosystem | Confirmed | The C boundary is a chapter of the core language (1.1, §2 bis); it is what makes existing code callable |
+| Adoption by the world as a success criterion | Confirmed | A language for two, first; the "readable" measurement is made with MaaaX, not with a survey |
+| Syntactic novelty | Confirmed | The grid does not judge syntax (§2); it is copied |
+| "The best of each language" | Confirmed, and tooled | Q5 is its mechanical translation: an interaction without a rule refuses the feature |
 
-L'amendement est reporté dans le cahier §6, daté et signé.
+The amendment is carried over into requirements §6, dated and signed.
 
-## 6. Sources relues le 2026-10-21
+## 6. Sources re-read on 2026-10-21
 
-- Go, *The Go Programming Language Specification*, « Defer
-  statements » : « A "defer" statement invokes a function whose
+- Go, *The Go Programming Language Specification*, "Defer
+  statements": "A 'defer' statement invokes a function whose
   execution is deferred to the moment the surrounding function returns,
   either because the surrounding function executed a return statement,
   reached the end of its function body, or because the corresponding
-  goroutine is panicking. »
-- Zig, *Language Reference* (master), « defer » : « Executes an
-  expression unconditionally at scope exit. » ; « Defer expressions are
-  evaluated in reverse order. »
-- Rust, documentation de `std`, mot-clé `async` : « Use `async` in
+  goroutine is panicking."
+- Zig, *Language Reference* (master), "defer": "Executes an
+  expression unconditionally at scope exit."; "Defer expressions are
+  evaluated in reverse order."
+- Rust, `std` documentation, `async` keyword: "Use `async` in
   front of `fn`, `closure`, or a `block` to turn the marked code into a
   `Future`. As such the code will not be run immediately, but will only
-  be evaluated when the returned future is `.await`ed. »
-- Rust, `std::future::Future` : « Futures alone are *inert*; they must
+  be evaluated when the returned future is `.await`ed."
+- Rust, `std::future::Future`: "Futures alone are *inert*; they must
   be *actively* `poll`ed for the underlying computation to make
-  progress ».
-- Rust, *Asynchronous Programming in Rust*, « async and await » :
-  « Rust lets you choose one depending on your requirements, rather
-  than providing one. » ; « You'll need to include the Tokio crate as
-  a dependency in your Cargo.toml ».
-- Rust, *The Rust Programming Language*, « Characteristics of
-  Object-Oriented Languages » : « If a language must have inheritance
+  progress".
+- Rust, *Asynchronous Programming in Rust*, "async and await":
+  "Rust lets you choose one depending on your requirements, rather
+  than providing one."; "You'll need to include the Tokio crate as
+  a dependency in your Cargo.toml".
+- Rust, *The Rust Programming Language*, "Characteristics of
+  Object-Oriented Languages": "If a language must have inheritance
   to be object oriented, then Rust is not such a language. There is no
   way to define a struct that inherits the parent struct's fields and
-  method implementations without using a macro. » ; « Inheritance is
-  often at risk of sharing more code than necessary. »
-- Go, *FAQ*, « Why is there no type inheritance? » : « Object-oriented
+  method implementations without using a macro."; "Inheritance is
+  often at risk of sharing more code than necessary."
+- Go, *FAQ*, "Why is there no type inheritance?": "Object-oriented
   programming, at least in the best-known languages, involves too much
   discussion of the relationships between types, relationships that
-  often could be derived automatically. Go takes a different approach. »
-- Rust, *The Rust Programming Language*, « Data Types » : « The
+  often could be derived automatically. Go takes a different approach."
+- Rust, *The Rust Programming Language*, "Data Types": "The
   compiler can usually infer what type we want to use based on the
   value and how we use it. In cases when many types are possible … we
-  must add a type annotation ». « Functions » : « In function
+  must add a type annotation". "Functions": "In function
   signatures, you *must* declare the type of each parameter. This is a
   deliberate decision in Rust's design: Requiring type annotations in
   function definitions means the compiler almost never needs you to use
-  them elsewhere in the code to figure out what type you mean. »
-- Rust, *The Rust Edition Guide*, « What are editions? » : « crates in
+  them elsewhere in the code to figure out what type you mean."
+- Rust, *The Rust Edition Guide*, "What are editions?": "crates in
   one edition **must** seamlessly interoperate with those compiled with
-  other editions » ; « Editions do not split the ecosystem ». C'est le
-  modèle de la porte de sortie du §3.
+  other editions"; "Editions do not split the ecosystem". This is the
+  model for the exit door of §3.

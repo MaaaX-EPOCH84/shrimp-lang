@@ -13,7 +13,7 @@
 # ================================================================
 # /tools/tokcount/measure.sh
 # ================================================================
-# Replays the measurement recorded in docs/spec_taille.md:
+# Replays the measurement recorded in docs/spec_size.md:
 # pinned sources, checked hashes, every vocabulary.
 # ================================================================
 # Author: Maxime MARCONATO (aka MaaaX^^, aka EPOCH84)
@@ -23,7 +23,7 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 # ================================================================
 
-# Replays the measurement recorded in docs/spec_taille.md: fetches the
+# Replays the measurement recorded in docs/spec_size.md: fetches the
 # reference specifications at pinned versions, checks their hashes,
 # extracts their text and counts them under every vocabulary.
 #

@@ -1,30 +1,29 @@
 # Shrimp
 
-> **Projet en cours de conception — rien n'est implémenté, rien n'est
-> utilisable.** Ce dépôt est public pour être lu, pas pour être installé.
-> *Work in progress: the language is being designed, nothing runs yet.*
+> **Under design — nothing is implemented, nothing is usable.** This
+> repository is public to be read, not to be installed.
 
-Un langage de programmation pour deux lecteurs : l'humain, qui a les
-idées et relit, et l'IA, qui écrit. Le compilateur arbitre.
+A programming language for two readers: the human who has the ideas
+and reads, and the AI who writes. The compiler arbitrates.
 
-**État : conception. Rien n'est implémenté.** Première pierre posée le
-20 octobre 2026, sans engagement de délai.
+**State: design. Nothing is implemented.** First stone laid on
+20 October 2026, with no commitment on timing.
 
-Ambition en une ligne : les garanties de Rust, beaucoup plus simple à
-lire. *Jumbo shrimp* : un noyau minuscule, une bibliothèque énorme.
+The ambition in one line: Rust's guarantees, much simpler to read.
+*Jumbo shrimp*: a tiny core language, a huge library.
 
-- `docs/cahier_des_charges.md` — ce que Shrimp doit être, et comment on le mesurera
-- `docs/architecture.md` — noyau gelé, trois étages de bibliothèque, incubateur
-- `docs/garanties.md` — les cinq garanties non négociables, et les candidates écartées
-- `docs/budget.md` — la grille « chaque trait paie sa place », le plafond, les non-objectifs
-- `docs/spec_taille.md` — le plafond en tokens de la spec du noyau, et ce que pèsent C, C++, Go, Zig et Rust
-- `docs/etat_de_l_art.md` — ce qu'on lit avant d'écrire une ligne
-- `docs/nom.md` — le nom, et ceux qu'on a écartés
-- `docs/licence.md` — pourquoi MIT ou Apache-2.0, et pas GPLv3
-- `tools/tokcount/` — le compteur de tokens, quatre vocabulaires figés, un moteur, le pire score
+- `docs/requirements.md` — what Shrimp must be, and how it will be measured
+- `docs/architecture.md` — frozen core language, three library tiers, incubator
+- `docs/guarantees.md` — the five non-negotiable guarantees, and the candidates set aside
+- `docs/budget.md` — the "every feature must pay its way" grid, the ceiling, the non-goals
+- `docs/spec_size.md` — the token ceiling of the core language spec, and what C, C++, Go, Zig and Rust weigh
+- `docs/state_of_the_art.md` — what is read before a line is written
+- `docs/name.md` — the name, and the ones set aside
+- `docs/license.md` — why MIT or Apache-2.0, and not GPLv3
+- `tools/tokcount/` — the token counter: four frozen vocabularies, one engine, the worst score
 
-## Licence
+## License
 
-MIT ou Apache-2.0, au choix du receveur : `LICENSE-MIT`,
-`LICENSE-APACHE`. Une seule licence pour tout, code et documents.
-Fichiers tiers redistribués : `THIRD_PARTY.md`.
+MIT or Apache-2.0, at your option: `LICENSE-MIT`, `LICENSE-APACHE`.
+One license for everything, code and documents. Redistributed
+third-party files: `THIRD_PARTY.md`.

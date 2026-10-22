@@ -26,7 +26,7 @@
 //!
 //! Counts a text under several frozen byte-level BPE vocabularies and
 //! reports each count with the worst of them, the figure that is compared
-//! with the ceiling fixed in `docs/spec_taille.md`. The vocabularies live
+//! with the ceiling fixed in `docs/spec_size.md`. The vocabularies live
 //! under `vocab/` next to this crate and are never updated in place: a
 //! count made today is reproducible as long as the repository exists.
 
