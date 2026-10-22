@@ -1,4 +1,28 @@
 #!/usr/bin/env bash
+# ================================================================
+#        _____ __         _
+#       / ___// /_  _____(_)___ ___  ____
+#       \__ \/ __ \/ ___/ / __ `__ \/ __ \
+#      ___/ / / / / /  / / / / / / / /_/ /
+#     /____/_/ /_/_/  /_/_/ /_/ /_/ .___/
+#                                /_/
+#
+# Shrimp — Small core, jumbo library.
+# A programming language for two readers:
+#      the human who reads, the AI who writes.
+# ================================================================
+# /tools/tokcount/measure.sh
+# ================================================================
+# Replays the measurement recorded in docs/spec_taille.md:
+# pinned sources, checked hashes, every vocabulary.
+# ================================================================
+# Author: Maxime MARCONATO (aka MaaaX^^, aka EPOCH84)
+# ================================================================
+# License: MIT OR Apache-2.0, at your option — see LICENSE-MIT
+# and LICENSE-APACHE.
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# ================================================================
+
 # Replays the measurement recorded in docs/spec_taille.md: fetches the
 # reference specifications at pinned versions, checks their hashes,
 # extracts their text and counts them under every vocabulary.

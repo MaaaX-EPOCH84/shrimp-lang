@@ -1,3 +1,26 @@
+// ================================================================
+//        _____ __         _
+//       / ___// /_  _____(_)___ ___  ____
+//       \__ \/ __ \/ ___/ / __ `__ \/ __ \
+//      ___/ / / / / /  / / / / / / / /_/ /
+//     /____/_/ /_/_/  /_/_/ /_/ /_/ .___/
+//                                /_/
+//
+// Shrimp — Small core, jumbo library.
+// A programming language for two readers:
+//      the human who reads, the AI who writes.
+// ================================================================
+// /tools/tokcount/src/bpe.rs
+// ================================================================
+// Byte-level BPE: the merge loop shared by every vocabulary.
+// ================================================================
+// Author: Maxime MARCONATO (aka MaaaX^^, aka EPOCH84)
+// ================================================================
+// License: MIT OR Apache-2.0, at your option — see LICENSE-MIT
+// and LICENSE-APACHE.
+// SPDX-License-Identifier: MIT OR Apache-2.0
+// ================================================================
+
 //! Byte-level BPE, the merge loop shared by every vocabulary.
 //!
 //! A piece of text starts as one symbol per byte. At each step the

@@ -1,3 +1,27 @@
+// ================================================================
+//        _____ __         _
+//       / ___// /_  _____(_)___ ___  ____
+//       \__ \/ __ \/ ___/ / __ `__ \/ __ \
+//      ___/ / / / / /  / / / / / / / /_/ /
+//     /____/_/ /_/_/  /_/_/ /_/ /_/ .___/
+//                                /_/
+//
+// Shrimp — Small core, jumbo library.
+// A programming language for two readers:
+//      the human who reads, the AI who writes.
+// ================================================================
+// /tools/tokcount/src/main.rs
+// ================================================================
+// Token counter for the Shrimp specification: a text, several
+// frozen vocabularies, and the worst score against the ceiling.
+// ================================================================
+// Author: Maxime MARCONATO (aka MaaaX^^, aka EPOCH84)
+// ================================================================
+// License: MIT OR Apache-2.0, at your option — see LICENSE-MIT
+// and LICENSE-APACHE.
+// SPDX-License-Identifier: MIT OR Apache-2.0
+// ================================================================
+
 //! Token counter for the Shrimp specification.
 //!
 //! Counts a text under several frozen byte-level BPE vocabularies and

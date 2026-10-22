@@ -2,6 +2,7 @@
 name = "tokcount"
 version = "0.1.0"
 edition = "2024"
+license = "MIT OR Apache-2.0"
 description = "Counts the tokens of a text under several frozen BPE vocabularies and keeps the worst score"
 publish = false
 

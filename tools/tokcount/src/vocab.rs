@@ -1,3 +1,27 @@
+// ================================================================
+//        _____ __         _
+//       / ___// /_  _____(_)___ ___  ____
+//       \__ \/ __ \/ ___/ / __ `__ \/ __ \
+//      ___/ / / / / /  / / / / / / / /_/ /
+//     /____/_/ /_/_/  /_/_/ /_/ /_/ .___/
+//                                /_/
+//
+// Shrimp — Small core, jumbo library.
+// A programming language for two readers:
+//      the human who reads, the AI who writes.
+// ================================================================
+// /tools/tokcount/src/vocab.rs
+// ================================================================
+// The frozen vocabularies, and what each one needs around the
+// merge loop: its pre-tokenizer, and whether it normalizes first.
+// ================================================================
+// Author: Maxime MARCONATO (aka MaaaX^^, aka EPOCH84)
+// ================================================================
+// License: MIT OR Apache-2.0, at your option — see LICENSE-MIT
+// and LICENSE-APACHE.
+// SPDX-License-Identifier: MIT OR Apache-2.0
+// ================================================================
+
 //! The frozen vocabularies and what each one needs around the merge loop:
 //! its pre-tokenizer, and whether it normalizes the text first.
 //!

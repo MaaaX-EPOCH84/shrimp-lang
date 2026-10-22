@@ -1,4 +1,28 @@
 #!/usr/bin/env python3
+# ================================================================
+#        _____ __         _
+#       / ___// /_  _____(_)___ ___  ____
+#       \__ \/ __ \/ ___/ / __ `__ \/ __ \
+#      ___/ / / / / /  / / / / / / / /_/ /
+#     /____/_/ /_/_/  /_/_/ /_/ /_/ .___/
+#                                /_/
+#
+# Shrimp — Small core, jumbo library.
+# A programming language for two readers:
+#      the human who reads, the AI who writes.
+# ================================================================
+# /tools/tokcount/check/compare.py
+# ================================================================
+# Checks tokcount against the reference implementations of its
+# vocabularies, tiktoken and tokenizers, on the same texts.
+# ================================================================
+# Author: Maxime MARCONATO (aka MaaaX^^, aka EPOCH84)
+# ================================================================
+# License: MIT OR Apache-2.0, at your option — see LICENSE-MIT
+# and LICENSE-APACHE.
+# SPDX-License-Identifier: MIT OR Apache-2.0
+# ================================================================
+
 """Checks tokcount against the reference implementations of its vocabularies.
 
 Every text given on the command line is counted twice: by tokcount, and by

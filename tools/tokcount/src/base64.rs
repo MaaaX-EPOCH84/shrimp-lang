@@ -1,3 +1,27 @@
+// ================================================================
+//        _____ __         _
+//       / ___// /_  _____(_)___ ___  ____
+//       \__ \/ __ \/ ___/ / __ `__ \/ __ \
+//      ___/ / / / / /  / / / / / / / /_/ /
+//     /____/_/ /_/_/  /_/_/ /_/ /_/ .___/
+//                                /_/
+//
+// Shrimp — Small core, jumbo library.
+// A programming language for two readers:
+//      the human who reads, the AI who writes.
+// ================================================================
+// /tools/tokcount/src/base64.rs
+// ================================================================
+// Standard base64 with padding, the encoding tiktoken files use
+// for token bytes. Forty lines instead of a pinned dependency.
+// ================================================================
+// Author: Maxime MARCONATO (aka MaaaX^^, aka EPOCH84)
+// ================================================================
+// License: MIT OR Apache-2.0, at your option — see LICENSE-MIT
+// and LICENSE-APACHE.
+// SPDX-License-Identifier: MIT OR Apache-2.0
+// ================================================================
+
 //! Standard base64 with padding, the encoding tiktoken files use for
 //! token bytes. Written here rather than pulled in: forty lines against a
 //! dependency that would have to be pinned for as long as the vocabularies.
@@ -50,7 +74,9 @@ mod tests {
     #[test]
     fn round_trip_every_length() {
         for len in 0..10 {
-            let bytes: Vec<u8> = (0..len).map(|i| i as u8 * 37 + 200).collect();
+            let bytes: Vec<u8> = (0..len)
+                .map(|i| (i as u8).wrapping_mul(37).wrapping_add(200))
+                .collect();
             assert_eq!(decode(&encode(&bytes)).unwrap(), bytes);
         }
     }
