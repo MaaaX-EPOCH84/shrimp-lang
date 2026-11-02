@@ -161,7 +161,9 @@ Not all of them combine: the choice is made, see `docs/guarantees.md`.
   The detail — support levels, cross-compilation, WebAssembly, BSD — is
   set at point 1.6 of the roadmap.
 - **A single tool**, a single chain, no choice of runner or formatter
-  left to the user.
+  left to the user. Its verbs, the `.shr` extension, the project layout,
+  running from source and the Unix tools shipped inside it are fixed at
+  point 1.5 (`docs/tool.md`).
 
 ## 8. Measurements
 

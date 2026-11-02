@@ -76,9 +76,12 @@ hand.
 
 ## 6. Tooling
 
-A single executable, `shrimp`: `build`, `run`, `test`, `fmt`, `doc`,
-`index`. No separate `shrimpc`, no choice of formatter. Source
-extension: `.shr` or `.shrimp` (`.sh` is taken).
+A single executable, `shrimp`: `new`, `check`, `build`, `run`, `test`,
+`fmt`, `doc`, `index`. No separate `shrimpc`, no choice of formatter.
+Source extension: `.shr`. Manifest `shrimp.toml`, lock file
+`shrimp.lock`, sources in `src/`, entry point `src/main.shr`. The Unix
+tools the AI needs (`grep`, `sed`, `find`…) ship inside `shrimp` as
+sub-commands, GNU semantics. Fixed at point 1.5, `docs/tool.md`.
 
 First compiler: in Rust, with a backend chosen to get quickly to a
 program that runs — emitted C, Cranelift or LLVM. Self-hosting later,
