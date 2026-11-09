@@ -159,6 +159,12 @@ macOS one is not yet tested on a Mac. Inventory in `assets/README.md`.
 Until a wordmark exists, the figlet logo of the source file headers
 remains the only text logo.
 
+*Added on 2026-11-09, MaaaX:* **the logo is the badge the mascot wears**,
+a red S in a yellow hexagon, drawn by MaaaX, cut out by SAM, in
+`assets/logo/` in colour and in black ink alone, with its own icon set at
+every size. **The S is the official icon of `shrimp`; the mantis shrimp
+is the alternative icon.** Both sets are kept.
+
 ## 8. Collisions
 
 Checked on 2026-10-23, read-only, against the live registries; the
