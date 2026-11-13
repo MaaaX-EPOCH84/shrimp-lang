@@ -158,8 +158,11 @@ Not all of them combine: the choice is made, see `docs/guarantees.md`.
   `core` runs without an OS or allocation. Multi-system and
   multi-processor are goals; multi-generation (Z80, 6502, 68000) is a
   wish, kept if it costs the language no constraint, dropped otherwise.
-  The detail — support levels, cross-compilation, WebAssembly, BSD — is
-  set at point 1.6 of the roadmap.
+  *Added on 2026-11-13, MaaaX:* the NEC uPD7801 joins the wish, under
+  the same rule.
+  The detail — three support levels, cross-compilation from the first
+  day, WebAssembly, BSD, mobile targets as libraries, what `core` may
+  rely on — is fixed at point 1.6 (`docs/targets.md`).
 - **A single tool**, a single chain, no choice of runner or formatter
   left to the user. Its verbs, the `.shr` extension, the project layout,
   running from source and the Unix tools shipped inside it are fixed at

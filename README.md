@@ -21,6 +21,7 @@ The ambition in one line: Rust's guarantees, much simpler to read.
 - `docs/name.md` — the name, and the ones set aside
 - `docs/license.md` — why MIT or Apache-2.0, and not GPLv3
 - `docs/tool.md` — the single tool `shrimp` and its eight verbs, `.shr`, running from source, the Unix tools inside, the mascot
+- `docs/targets.md` — three levels of support, the targets, cross-compilation from the first day, the C boundary, `core` on an ESP32-C3
 - `assets/` — the mascot, the logo and the icons, drawn by MaaaX
 - `tools/tokcount/` — the token counter: four frozen vocabularies, one engine, the worst score
 

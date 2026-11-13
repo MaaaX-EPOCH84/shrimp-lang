@@ -18,7 +18,9 @@ It contains this, and nothing else:
 - the **type system**: sums, products, generics or `comptime`, traits or
   interfaces — to be decided;
 - the **minimal syntax**, borrowed, not invented;
-- the **boundary**: `unsafe` if it exists, and the C ABI.
+- the **boundary**: `unsafe` if it exists, and the C ABI — the
+  guarantees at the crossing in `docs/guarantees.md` §2 bis, the
+  targets and the forms of output in `docs/targets.md`.
 
 The standard library, however huge, is not part of it.
 
@@ -26,7 +28,7 @@ The standard library, however huge, is not part of it.
 
 | Tier | Contents | Rule |
 |---|---|---|
-| `core` | No OS, no allocation: basic types, slices, options and results, minimal formatting | What fits in a microcontroller; what a Z80 could aim for |
+| `core` | No OS, no allocation: basic types, slices, options and results, minimal formatting | What fits in a microcontroller; what a Z80 could aim for. What it may rely on is fixed at point 1.6, `docs/targets.md` §5 |
 | `std` | Everything 90% of programs need: text and Unicode, collections, math, time, files, networking and HTTP, JSON, TOML, CSV, XML, hashing and TLS, regular expressions, compression, processes, arguments, tests | One convention everywhere. Written in Shrimp. Precompiled, linked on demand: a big `std` costs a small binary nothing |
 | `x/` | Official incubator: same tooling, same governance, allowed to break | The waiting line into `std`; what is never promoted gets archived |
 
@@ -85,4 +87,6 @@ sub-commands, GNU semantics. Fixed at point 1.5, `docs/tool.md`.
 
 First compiler: in Rust, with a backend chosen to get quickly to a
 program that runs — emitted C, Cranelift or LLVM. Self-hosting later,
-when the language deserves it.
+when the language deserves it. The backend must produce every target
+from every host with nothing installed but `shrimp`: constraint fixed
+at point 1.6, `docs/targets.md` §3.
