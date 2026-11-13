@@ -192,6 +192,13 @@ point 1.7, the form of the Bible; `tokcount` already counts per file and
 in total, it has nothing to learn. The size of a typical session becomes
 that of the trunk plus one or two sections, well under the ceiling.
 
+*Amended on 2026-11-13, point 1.7, MaaaX:* point 1.7 fixes the form —
+one file for the trunk, one file per section, the index of the sections
+at the head of the trunk — and sends the split, the list of sections
+and the figure for the trunk on to step 3, by a dated decision once the
+text exists: decided before it, they would be guessed
+(`docs/bible.md` §5).
+
 ## 6. Replaying
 
 ```

@@ -147,6 +147,10 @@ twice); `shrimp doc` renders the same text as HTML and PDF. For the AI,
 the self-contained section of `docs/spec_size.md` §5, applied to the
 tool.
 
+*Added on 2026-11-13, point 1.7, MaaaX:* the tooling is Book III of the
+Bible, one file per verb or tool under `bible/book3/`
+(`docs/bible.md` §1 and §4).
+
 ## 7. The identity
 
 **The mascot is a mantis shrimp**, validated on 2026-10-23: the fastest

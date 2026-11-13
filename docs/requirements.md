@@ -202,6 +202,11 @@ in one block, and in a single source language.
 - **The machine-readable index** (§2) is generated from the same sources
   as the Bible; nothing is written twice.
 
+The shape — three books and the appendices, Markdown in a closed
+subset, the conventions of the text, the place in the repository, what
+renders it and when, the translation rule — is fixed at point 1.7
+(`docs/bible.md`).
+
 ## 10. Editor tooling
 
 Added on 2026-10-21 (MaaaX). Reading code also means reading it in an
