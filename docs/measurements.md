@@ -330,6 +330,10 @@ Four rules of form:
 - **it writes nothing in the tree** but the build directory of
   `cargo`, which Git ignores.
 
+*Added on 2026-11-15, point 2.1, MaaaX:* a sixth step checks the form
+of the grid of `docs/state_of_the_art.md` — its languages, its cells,
+its closed words — as §1 of that document fixes it.
+
 **It grows with the project**: the count of Book I against the ceiling
 at step 3; at step 7 the compiler's own tests, the examples of the
 Bible (`docs/bible.md` §4), the verdicts of the corpus, the count of

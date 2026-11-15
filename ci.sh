@@ -230,11 +230,164 @@ doc_references() {
     printf '%d documents\n' "${#documents[@]}"
 }
 
+# Checks the form of the grid of docs/state_of_the_art.md, as its §1
+# fixes it. Three tables are recognised by their header row: the list
+# of languages, the grid at a glance, and the cells of one language
+# under its "### Language" heading.
+#
+# Every language of the list has a row in the grid and five cells, G1
+# to G5; a status is one of the five words; a filled cell has its
+# mechanism, its cost and its source, the cost opening on words of the
+# closed list; a cell that says "not read" holds nothing else; and the
+# grid at a glance repeats the status of each cell.
+grid_form() {
+    LC_ALL=C awk '
+        function trim(text) {
+            sub(/^[ \t]+/, "", text)
+            sub(/[ \t]+$/, "", text)
+            return text
+        }
+
+        function report(message) {
+            printf "%s: %s\n", FILENAME, message
+            bad = 1
+        }
+
+        function check_cost(language, guarantee, cost,    words, count, i, word) {
+            sub(/:.*$/, "", cost)
+            count = split(cost, words, ",")
+            for (i = 1; i <= count; i++) {
+                word = trim(words[i])
+                if (!(word in cost_word)) {
+                    report(language " " guarantee ": the cost opens on \"" word "\"")
+                }
+            }
+        }
+
+        BEGIN {
+            split("guaranteed|checked at run time|by convention|absent|not read", list, "|")
+            for (i in list) {
+                status_word[list[i]] = 1
+            }
+            split("spec|compile time|speed|refusals|reading|stability|hidden|none|not found", list, "|")
+            for (i in list) {
+                cost_word[list[i]] = 1
+            }
+        }
+
+        /^### / {
+            language = trim(substr($0, 5))
+            table = ""
+            next
+        }
+
+        /^## / {
+            language = ""
+            table = ""
+            next
+        }
+
+        !/^\|/ {
+            table = ""
+            next
+        }
+
+        /^\| *Language *\| *Lot *\|/ { table = "list"; next }
+        /^\| *Language *\| *G1 *\|/ { table = "grid"; next }
+        /^\| *Guarantee *\| *Status *\|/ { table = "cells"; has_cells[language] = 1; next }
+        /^\|[-:| ]+\|$/ { next }
+
+        table == "list" {
+            split($0, cell, "|")
+            listed[trim(cell[2])] = 1
+            languages++
+        }
+
+        table == "grid" {
+            count = split($0, cell, "|")
+            name = trim(cell[2])
+            in_grid[name] = 1
+            if (count != 8) {
+                report(name ": the row of the grid has " count - 2 " cells, 6 expected")
+            }
+            for (i = 1; i <= 5; i++) {
+                glance[name, "G" i] = trim(cell[2 + i])
+            }
+        }
+
+        table == "cells" {
+            count = split($0, cell, "|")
+            guarantee = trim(cell[2])
+            status = trim(cell[3])
+            mechanism = trim(cell[4])
+            cost = trim(cell[5])
+            source = trim(cell[6])
+            if (count != 7) {
+                report(language " " guarantee ": the row has " count - 2 " cells, 5 expected")
+            }
+            if (guarantee !~ /^G[1-5]$/) {
+                report(language ": \"" guarantee "\" is not a guarantee")
+            }
+            if ((language, guarantee) in cell_status) {
+                report(language " " guarantee ": written twice")
+            }
+            cell_status[language, guarantee] = status
+            if (!(status in status_word)) {
+                report(language " " guarantee ": \"" status "\" is not a status")
+            } else if (status == "not read") {
+                if (mechanism != "" || cost != "" || source != "") {
+                    report(language " " guarantee ": says not read and holds something")
+                }
+            } else {
+                if (mechanism == "" || cost == "" || source == "") {
+                    report(language " " guarantee ": a mechanism, a cost and a source are required")
+                }
+                check_cost(language, guarantee, cost)
+            }
+        }
+
+        END {
+            if (languages == 0) {
+                report("no list of languages found")
+            }
+            for (name in listed) {
+                if (!(name in in_grid)) {
+                    report(name ": listed, with no row in the grid")
+                }
+                if (!(name in has_cells)) {
+                    report(name ": listed, with no cells")
+                }
+                for (i = 1; i <= 5; i++) {
+                    guarantee = "G" i
+                    if (!((name, guarantee) in cell_status)) {
+                        report(name " " guarantee ": no cell")
+                    } else if (glance[name, guarantee] != cell_status[name, guarantee]) {
+                        report(name " " guarantee ": the grid says \"" glance[name, guarantee] "\", the cell \"" cell_status[name, guarantee] "\"")
+                    }
+                }
+            }
+            for (name in in_grid) {
+                if (!(name in listed)) {
+                    report(name ": in the grid, not in the list")
+                }
+            }
+            for (name in has_cells) {
+                if (!(name in listed)) {
+                    report(name ": has cells, not in the list")
+                }
+            }
+            printf "%d languages\n", languages
+            exit bad
+        }
+    ' docs/state_of_the_art.md
+}
+
 step 'tokcount: tests' tokcount_tests
 step 'tokcount: clippy and rustfmt' tokcount_lints
 step 'shell scripts: syntax and shellcheck' shell_sources
 step 'python scripts: syntax' python_sources
 step 'documents: paths and section numbers' doc_references
+step 'state of the art: the form of the grid' grid_form
 
 printf '\n'
 if [ "${#failed[@]}" -ne 0 ]; then

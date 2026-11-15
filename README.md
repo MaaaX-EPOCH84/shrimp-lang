@@ -17,7 +17,7 @@ The ambition in one line: Rust's guarantees, much simpler to read.
 - `docs/guarantees.md` — the five non-negotiable guarantees, and the candidates set aside
 - `docs/budget.md` — the "every feature must pay its way" grid, the ceiling, the non-goals
 - `docs/spec_size.md` — the token ceiling of the core language spec, and what C, C++, Go, Zig and Rust weigh
-- `docs/state_of_the_art.md` — what is read before a line is written
+- `docs/state_of_the_art.md` — what is read before a line is written: eighteen languages against the five guarantees, a fixed grid, each cell re-read at the source
 - `docs/name.md` — the name, and the ones set aside
 - `docs/license.md` — why MIT or Apache-2.0, and not GPLv3
 - `docs/tool.md` — the single tool `shrimp` and its eight verbs, `.shr`, running from source, the Unix tools inside, the mascot
