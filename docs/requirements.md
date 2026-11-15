@@ -183,6 +183,10 @@ requirement, otherwise the requirement is an opinion.
 | Stable | Programs of the corpus that still compile after each release | 100% after 1.0 |
 | Nothing hidden | Allocations and calls not visible in the source | Zero |
 
+How each figure is taken — on which programs, against which compilers,
+on which machine, by which script — is fixed at point 1.8
+(`docs/measurements.md`).
+
 ## 9. Documentation
 
 Added on 2026-10-21. A language is documented the way it is specified:

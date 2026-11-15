@@ -69,7 +69,8 @@ feature does not enter the core language without its archived grid.
 
 **What the grid does not judge.** Syntax, which is copied (requirements
 §6), and the speed of the generated code, which is measured (point
-1.8). The grid judges what a feature costs to read and to specify.
+1.8, `docs/measurements.md` §4). The grid judges what a feature costs
+to read and to specify.
 
 ## 3. The ceiling
 
@@ -135,11 +136,11 @@ your requirements, rather than providing one".
 
 **The grid.** Q0: visible, not settled (1.1). Q1: the executor, yes;
 the transformation of a function into a state machine, no — it is in
-the compiler. Q2: no measurement of §8; what it serves is the writing
-of servers, which `std` must allow (network, HTTP) but which threads
-and G3 allow too. Q3: the witness program — a server serving ten
-connections — reads better in synchronous threads: each connection is
-an ordinary function. Q4: it duplicates the thread-based concurrency
+the compiler. Q2: no measurement of requirements §8; what it serves is
+the writing of servers, which `std` must allow (network, HTTP) but
+which threads and G3 allow too. Q3: the witness program — a server
+serving ten connections — reads better in synchronous threads: each
+connection is an ordinary function. Q4: it duplicates the thread-based concurrency
 model, and **it duplicates `std`**: every blocking function calls for
 its asynchronous twin (Rust has `std::fs` and `tokio::fs`), which
 contradicts "one single convention everywhere". That would already be a
@@ -151,7 +152,7 @@ resource, and no rule says who consumes it. Refused.
 **What the refusal leaves.** Shrimp's concurrency is that of G3:
 threads, and a typed sharing model to be set at step 3. If a witness
 program one day shows that a threaded server fails a measurement of
-§8, the feature goes through the grid again with a rule for
+requirements §8, the feature goes through the grid again with a rule for
 cancellation — or lives in a library in `x/`, without syntax.
 
 ### Inheritance — Refused (Q5)

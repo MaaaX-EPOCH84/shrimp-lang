@@ -211,8 +211,9 @@ Austral ("algebraic data types … with exhaustiveness checking"), Zig
 
 ## 2 bis. The C boundary
 
-The requirements impose C interoperability in both directions (§7). The
-guarantees do not cross the boundary: they say what happens when it is
+The requirements impose C interoperability in both directions
+(requirements §7). The guarantees do not cross the boundary: they say
+what happens when it is
 crossed.
 
 | Guarantee | At the boundary |
@@ -237,7 +238,7 @@ language (step 3).
 | Errors as values | Absorbed by G4 and G5 | "As values" follows from G4 (no exceptions); what remains, exhaustiveness, is G5 |
 | Compatibility over time | Off the list | Governance commitment, not a property of a program; guaranteed by corpus and editions, point 1.2 |
 | Bounded specification | Off the list | Same nature: a constraint on the project, measured in tokens at point 1.3 |
-| Zero-cost abstraction | Refused as a guarantee | Forbids nothing nameable (criterion 2): one can always write slow code. It is a design principle, measured at point 1.8 against C and Rust |
+| Zero-cost abstraction | Refused as a guarantee | Forbids nothing nameable (criterion 2): one can always write slow code. It is a design principle, measured at point 1.8 against C and Rust (`docs/measurements.md` §4) |
 
 ## 4. The pairs
 

@@ -38,8 +38,9 @@ and it is the only description of the check: the developer runs it
 locally before pushing (a `pre-push` hook can do it), and the remote
 continuous integration does nothing but call it. Two descriptions of
 the same check drift apart; one does not. Its form belongs to the
-measurement protocol (point 1.8), its installation to the prototype
-(step 7); `shrimp test` takes over when it exists. The remote side also
+measurement protocol (point 1.8, `docs/measurements.md` §10), its
+installation to the prototype (step 7); `shrimp test` takes over when
+it exists. The remote side also
 gives what MaaaX's machine cannot: at the time of writing GitHub hosts
 runners for Linux, Windows and macOS, on x64 and arm64 — and none for
 any BSD.
@@ -222,9 +223,9 @@ allocator falls between the two. Rust answers with a tier of its own
 (`alloc`); whether Shrimp's three tiers need a fourth, or a part of
 `std` that requires only an allocator, is decided with the tiers.
 
-**What is measured** (point 1.8, then step 8): the size in flash of
-the empty program and of a reference program on an ESP32-C3, beside
-the same in C and in Rust. "`core` fits" will be that figure, not an
+**What is measured** (point 1.8, `docs/measurements.md` §9, then
+step 8): the size in flash of the empty program and of a reference
+program on an ESP32-C3, beside the same in C and in Rust. "`core` fits" will be that figure, not an
 adjective.
 
 ## 6. The multi-generation wish
@@ -262,7 +263,7 @@ by the discipline of `core`, not by a promise.
 
 | What | Step |
 |---|---|
-| The check script, its content and the measurements it runs; size of `core` on an ESP32-C3 against C and Rust | 1.8 |
+| The check script, its content and the measurements it runs; size of `core` on an ESP32-C3 against C and Rust | 1.8 (`docs/measurements.md` §10 and §9) |
 | The C boundary in the spec: ABI, representable types, strings, callbacks, exported functions and the generated header; what stopping means on a bare target; resources on a path that never ends | 3 |
 | Collections with an allocator and no system: a fourth tier or a part of `std` | 4 |
 | The backend or backends, the linker inside `shrimp`, the first level 2 builds, the continuous integration installed | 7 |

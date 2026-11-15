@@ -23,8 +23,10 @@ The ambition in one line: Rust's guarantees, much simpler to read.
 - `docs/tool.md` — the single tool `shrimp` and its eight verbs, `.shr`, running from source, the Unix tools inside, the mascot
 - `docs/targets.md` — three levels of support, the targets, cross-compilation from the first day, the C boundary, `core` on an ESP32-C3
 - `docs/bible.md` — the shape of the reference: three books, Markdown in a closed subset, examples compiled from the text, translation from English
+- `docs/measurements.md` — how each figure is taken: reference programs, compilers, sessions, the corpus of refused programs, the check script
 - `assets/` — the mascot, the logo and the icons, drawn by MaaaX
 - `tools/tokcount/` — the token counter: four frozen vocabularies, one engine, the worst score
+- `ci.sh` — the one check of the repository, run before each commit
 
 ## License
 

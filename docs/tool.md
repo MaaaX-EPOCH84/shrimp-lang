@@ -97,9 +97,9 @@ compilation must require nothing but `shrimp`, no linker and no C
 toolchain to install, or "running from source" breaks on a bare Windows
 machine. An interpreter over the compiler's intermediate representation
 is one way to meet it, a backend with its own linker is another; the
-choice belongs with the backend. **Measured at point 1.8:** the latency
-between the keystroke and the first line of output, source cached and
-source modified.
+choice belongs with the backend. **Measured at point 1.8
+(`docs/measurements.md` §5):** the latency between the keystroke and
+the first line of output, source cached and source modified.
 
 ## 5. The Unix tools inside `shrimp`
 
@@ -201,7 +201,7 @@ repository.
 |---|---|
 | Content of `shrimp.toml` and `shrimp.lock`, dependency mechanism, registry | 4 |
 | Backend; `run` without any external toolchain | 7 |
-| Latency of `run`, cached and modified | 1.8 |
+| Latency of `run`, cached and modified | 1.8 (`docs/measurements.md` §5); first figure at step 7 |
 | List of the Unix tools and their options; shebang form; Windows file association; further verbs | 10 |
 | Language server, VS Code and VSCodium extension (requirements §10) | 10 |
 | Wordmark; testing `shrimp.icns` on a Mac | when a Mac is at hand |
